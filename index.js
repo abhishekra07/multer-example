@@ -1,17 +1,17 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const multer  = require('multer')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/tmp/my-uploads')
+        cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
-        // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        // cb(null, file.originalname + '-' + uniqueSuffix)
-        cb(null, file.originalname)
+        console.log(file)
+        cb(null, Date.now() + path.extname(file.originalname))
     }
 })
 
@@ -22,7 +22,7 @@ const port = 3000
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/upload-single-file', upload.single(), function (req, res, next) {
+app.post('/upload-single-file', upload.single('image'), function (req, res, next) {
     console.log(req.file);
 })
 
