@@ -26,7 +26,7 @@ app.post('/upload-single-file', upload.single('image'), function (req, res, next
     console.log(req.file);
 })
 
-app.post('/upload-multiple-file', upload.array(), function (req, res, next) {
+app.post('/upload-multiple-file', upload.array('images'), function (req, res, next) {
     console.log(req.files);
 })
 
